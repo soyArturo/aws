@@ -16,15 +16,15 @@ class EmployeeViewSet(viewsets.ViewSet):
     
     def create(self, request):
         db_handle = get_db_handle()
-        print(request.data)
-        # if db_handle is not None:
-        #     employees = db_handle.employee
-        #     employee = {
-        #         'name': request.data['name'],
-        #         'age': request.data['age'],
-        #         'salary': request.data['salary']
-        #     }
-        #     employees.insert_one(employee).inserted_id
-        #     return Response(employee)
-        # else:
-        #     return Response("Could not connect to database")
+        if db_handle is not None:
+            employees = db_handle.employee
+            employee = {
+                'name': request.data['name'],
+                'age': request.data['age'],
+                'salary': request.data['salary']
+            }
+            employees.insert_one(employee).inserted_id
+            employee_serializer = EmployeeSerializer(employee)
+            return Response(employee)
+        else:
+            return Response("Could not connect to database")
