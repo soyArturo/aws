@@ -10,6 +10,8 @@ services:
       - config/.env
     ports:
       - "8003:8000"
+    networks:
+      - aws_network
   
   mysql:
     image: mysql:8
@@ -19,6 +21,8 @@ services:
       - "3368:3306"
     env_file:
       - config/.env
+    networks:
+      - aws_network
   
   mongodb:
     image: mongo:5.0
@@ -26,3 +30,6 @@ services:
       - "27017:27017"
     env_file:
       - config/.env
+
+networks:
+  aws_network:
